@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Wagba</string>
+    <string name="sign_up">Sign up</string>
+    <string name="fname_sign_up">First Name</string>
+    <string name="lname_sign_up">Last Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password_sign_up">Confirm Password</string>
+    <string name="gender_sign_up">Gender</string>
+    <string name="birthday_sign_up">Date of birth</string>
+    <string name="terms_sign_up">By creating account, you accept term of use</string>
+    <string name="creation_sign_up">Create account</string>
+    <string name="haveAccount_sign_up">Already have an account? <font color='#365F92'>Login</font></string>
+    <string name="sign_in">Sign in</string>
+</resources>

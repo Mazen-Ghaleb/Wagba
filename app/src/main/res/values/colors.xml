@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="dark_pastel_blue">#789BC7</color>
+    <color name="blossom">#E5B2B9</color>
+    <color name="dawn_pink">#E8EBEE</color>
+    <color name="Geyser">#D1DCE5</color>
+    <color name="Denim">#365F92</color>
+    <color name="nile_blue">#13335C</color>
+</resources>
