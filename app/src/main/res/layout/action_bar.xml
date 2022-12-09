@@ -23,16 +23,27 @@
         android:orientation="vertical"
         >
 
-        <TextView
+        <ImageView
             android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/Denim"
-            android:fontFamily="@font/paisley_icg_02"
             android:gravity="center"
             android:textColor= "@color/Geyser"
-            android:textSize="60sp"
-            tools:text="@string/app_name"></TextView>
+            android:src="@drawable/logo"
+            />
+
+<!--        This works on Preview but not Emulator -->
+<!--        <TextView-->
+<!--            android:id="@+id/logo"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/Denim"-->
+<!--            android:fontFamily="@font/paisley_icg_02"-->
+<!--            android:gravity="center"-->
+<!--            android:textColor= "@color/Geyser"-->
+<!--            android:textSize="60sp"-->
+<!--            tools:text="@string/app_name"></TextView>-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

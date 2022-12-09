@@ -19,7 +19,7 @@
 
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,10 +46,6 @@
                 android:layout_weight="3"
                 android:orientation="vertical">
 
-
-
-
-
                 <TextView
                     android:id="@+id/email_sign_up"
                     android:layout_width="match_parent"
@@ -57,12 +53,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
                     android:text="@string/email"
                     android:textColor="@color/Denim"
                     android:textSize="18sp"
-
-                    ></TextView>
+                    />
 
                 <TextView
                     android:id="@+id/password_sign_up"
@@ -71,13 +65,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
-
                     android:text="@string/password"
                     android:textColor="@color/Denim"
                     android:textSize="18sp"
-
-                    ></TextView>
+                    />
 
 
             </LinearLayout>
@@ -97,32 +88,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-
                     android:background="@drawable/rounded_edittext"
                     android:fontFamily="@font/open_sans"
-
                     android:gravity="center|left"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
-
                     android:textColor="@color/white"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/password_val_sign_in"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-
                     android:background="@drawable/rounded_edittext"
                     android:fontFamily="@font/open_sans"
-
                     android:gravity="center|left"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
-
                     android:textColor="@color/white"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="18sp"/>
 
             </LinearLayout>
 
@@ -144,10 +129,7 @@
             android:layout_height="0dp"
             android:layout_weight="8"
             android:orientation="vertical">
-
-
         </LinearLayout>
-
 
     </LinearLayout>
 

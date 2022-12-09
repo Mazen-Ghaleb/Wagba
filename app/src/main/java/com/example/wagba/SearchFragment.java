@@ -8,11 +8,28 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.search_fragment,container,false);
+        View rootView = inflater.inflate(R.layout.search_fragment,container,false);
+
+        RecyclerView searchRecyclerView = (RecyclerView) rootView.findViewById(R.id.searchRecyclerView);
+        searchRecyclerView.setHasFixedSize(true);
+        searchRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        SearchData[] searchData = new SearchData[]{
+                new SearchData("KFC",R.drawable.kfc),
+                new SearchData("McDonald's",R.drawable.mc_donalds),
+                new SearchData("Papa John's",R.drawable.papa_johns),
+        };
+
+        SearchAdapter searchAdapter = new SearchAdapter(searchData,getActivity());
+        searchRecyclerView.setAdapter(searchAdapter);
+
+        return rootView;
     }
 }
