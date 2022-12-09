@@ -16,10 +16,9 @@
         android:gravity="center"
         android:text="@string/sign_up"
         android:textColor="@color/Denim"
-
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,11 +46,9 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
                     android:text="@string/fname_sign_up"
-
                     android:textColor="@color/Denim"
-                    android:textSize="18sp"></TextView>
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/lname_signup"
@@ -60,12 +57,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
                     android:text="@string/lname_sign_up"
                     android:textColor="@color/Denim"
                     android:textSize="18sp"
-
-                    ></TextView>
+                    />
 
                 <TextView
                     android:id="@+id/email_sign_up"
@@ -74,12 +69,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
                     android:text="@string/email"
                     android:textColor="@color/Denim"
                     android:textSize="18sp"
-
-                    ></TextView>
+                    />
 
                 <TextView
                     android:id="@+id/password_sign_up"
@@ -88,13 +81,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
-
                     android:text="@string/password"
                     android:textColor="@color/Denim"
                     android:textSize="18sp"
-
-                    ></TextView>
+                    />
 
                 <TextView
                     android:id="@+id/confirm_password_sign_up"
@@ -103,13 +93,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
-
                     android:text="@string/confirm_password_sign_up"
                     android:textColor="@color/Denim"
                     android:textSize="18sp"
-
-                    ></TextView>
+                    />
 
                 <TextView
                     android:id="@+id/gender_sign_up"
@@ -118,12 +105,10 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
                     android:text="@string/gender_sign_up"
                     android:textColor="@color/Denim"
                     android:textSize="18sp"
-
-                    ></TextView>
+                    />
 
                 <TextView
                     android:id="@+id/birthday_sign_up"
@@ -132,12 +117,11 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
                     android:text="@string/birthday_sign_up"
                     android:textColor="@color/Denim"
                     android:textSize="18sp"
+                    />
 
-                    ></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -156,120 +140,102 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_edittext"
-
-
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-
                     android:inputType="textPersonName"
                     android:paddingLeft="20dp"
-
                     android:textColor="@color/white"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/lname_val_signup"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-
                     android:background="@drawable/rounded_edittext"
                     android:fontFamily="@font/open_sans"
-
                     android:gravity="center|left"
                     android:inputType="textPersonName"
                     android:paddingLeft="20dp"
-
                     android:textColor="@color/white"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/email_val_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-
                     android:background="@drawable/rounded_edittext"
                     android:fontFamily="@font/open_sans"
-
                     android:gravity="center|left"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
-
                     android:textColor="@color/white"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/password_val_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-
                     android:background="@drawable/rounded_edittext"
                     android:fontFamily="@font/open_sans"
-
                     android:gravity="center|left"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
-
                     android:textColor="@color/white"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/confirm_password_val"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-
                     android:background="@drawable/rounded_edittext"
                     android:fontFamily="@font/open_sans"
-
                     android:gravity="center|left"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
-
                     android:textColor="@color/white"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="18sp"/>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/gender_val_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
                     android:layout_weight="1"
-
                     android:fontFamily="@font/open_sans"
                     app:cardBackgroundColor="@color/Denim"
                     app:cardCornerRadius="10dp">
 
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:backgroundTint="@color/Denim"
+                        app:tabBackground="@drawable/tabs_selector"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="@android:color/transparent"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabMode="fixed"
+                        app:tabRippleColor="@android:color/transparent"
+                        app:tabSelectedTextColor="@android:color/white"
+                        app:tabTextAppearance="@style/CustomTabTextAppearance"
+                        app:tabTextColor="@android:color/white">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Male" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Female" />
+
+                    </com.google.android.material.tabs.TabLayout>
                 </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_margin="1dp"
-                    android:backgroundTint="@color/Denim"
-                    app:tabBackground="@drawable/tabs_selector"
-                    app:tabGravity="fill"
-                    app:tabIndicatorColor="@android:color/transparent"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabMode="fixed"
-                    app:tabRippleColor="@android:color/transparent"
-                    app:tabSelectedTextColor="@android:color/white"
-                    app:tabTextAppearance="@style/CustomTabTextAppearance"
-                    app:tabTextColor="@android:color/white">
-
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Male" />
-
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Female" />
-
-                </com.google.android.material.tabs.TabLayout>
 
                 <EditText
                     android:id="@+id/birthday_val_sign_up"
@@ -286,7 +252,7 @@
                     android:paddingLeft="20dp"
 
                     android:textColor="@color/white"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="18sp"/>
 
             </LinearLayout>
 
@@ -305,7 +271,7 @@
             android:textAlignment="viewStart"
             android:textColor="@color/Denim"
 
-            android:textSize="18sp"></TextView>
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/button"
@@ -332,7 +298,7 @@
             android:textColor="@color/nile_blue"
             android:textStyle="bold"
 
-            android:textSize="18sp"></TextView>
+            android:textSize="18sp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
