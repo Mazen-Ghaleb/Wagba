@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        (new Handler()).postDelayed(this::switchPage, 5000);
+        (new Handler()).postDelayed(this::switchPage, 1000);
 
 //        logo = (TextView) findViewById(R.id.Logo);
 //        Typeface typeface = getResources().getFont(R.font.paisley_icg_02);

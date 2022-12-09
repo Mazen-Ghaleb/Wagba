@@ -3,6 +3,8 @@ package com.example.wagba;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,6 +27,9 @@ public class HomeActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
+
+
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
