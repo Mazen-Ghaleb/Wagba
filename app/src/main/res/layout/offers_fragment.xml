@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="100dp"/>
-    <!--        Padding Action Bar which is around 100dp-->
+        android:paddingBottom="50dp"/>
+    <!--        Padding to compensate Action Bar -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

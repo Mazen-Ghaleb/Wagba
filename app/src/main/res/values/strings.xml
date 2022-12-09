@@ -29,4 +29,11 @@
     <string name="offer_initial_title">Get 20 EGP off On Selected Items</string>
     <string name="offer_initial_date">Valid until</string>
     <string name="initial_restaurant">KFC</string>
+    <string name="account_info">Account info</string>
+    <string name="settings_sign_out">Sign out</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="change_password">Change password</string>
+    <string name="change_email">Change email</string>
+    <string name="saved_addresses">Saved Addresses</string>
 </resources>
