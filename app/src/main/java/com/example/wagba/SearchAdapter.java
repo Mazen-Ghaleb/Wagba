@@ -13,10 +13,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
-    SearchData[] searchData;
+    RestaurantData[] searchData;
     Context context;
 
-    public SearchAdapter (SearchData[] searchData, FragmentActivity activity) {
+    public SearchAdapter (RestaurantData[] searchData, FragmentActivity activity) {
         this.searchData = searchData;
         this.context = activity;
     }
@@ -33,7 +33,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
-        final SearchData searchDataList = searchData[position];
+        final RestaurantData searchDataList = searchData[position];
         holder.searchRestaurant.setText(searchDataList.getRestaurant());
         holder.restaurantImage.setImageResource(searchDataList.getRestaurantImage());
 

@@ -21,10 +21,10 @@ public class SearchFragment extends Fragment {
         searchRecyclerView.setHasFixedSize(true);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        SearchData[] searchData = new SearchData[]{
-                new SearchData("KFC",R.drawable.kfc),
-                new SearchData("McDonald's",R.drawable.mc_donalds),
-                new SearchData("Papa John's",R.drawable.papa_johns),
+        RestaurantData[] searchData = new RestaurantData[]{
+                new RestaurantData("KFC",R.drawable.kfc),
+                new RestaurantData("McDonald's",R.drawable.mc_donalds),
+                new RestaurantData("Papa John's",R.drawable.papa_johns),
         };
 
         SearchAdapter searchAdapter = new SearchAdapter(searchData,getActivity());

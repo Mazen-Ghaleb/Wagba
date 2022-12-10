@@ -1,10 +1,10 @@
 package com.example.wagba;
 
-public class SearchData {
+public class RestaurantData {
     private String restaurant;
     private Integer restaurantImage;
 
-    public SearchData(String restaurant, Integer restaurantImage) {
+    public RestaurantData(String restaurant, Integer restaurantImage) {
         this.restaurant = restaurant;
         this.restaurantImage = restaurantImage;
     }

@@ -28,8 +28,6 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
 
-
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -51,6 +49,8 @@ public class HomeActivity extends AppCompatActivity {
                         case R.id.Settings:
                             selectedFragment = new SettingsFragment();
                             break;
+                        case R.id.order_history:
+                            selectedFragment = new OrderHistoryFragment();
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             selectedFragment).commit();
