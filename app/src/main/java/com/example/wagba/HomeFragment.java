@@ -1,5 +1,6 @@
 package com.example.wagba;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment,container,false);
 
-//        View dummyView = (View) rootView.findViewById(R.id.dummy_view);
-//        dummyView.setVisibility(View.Invisible);
+        View currentOrder = (View) rootView.findViewById(R.id.current_order_card);
+        currentOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new TrackingFragment()).commit();
+            }
+        });
 
         RecyclerView frequentRecyclerView = (RecyclerView) rootView.findViewById(R.id.frequentRecyclerView);
         frequentRecyclerView.setHasFixedSize(true);
