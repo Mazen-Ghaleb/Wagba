@@ -45,4 +45,6 @@
     <string name="initial_order_number">Order #210</string>
     <string name="initial_order_date">Delivered 10 Oct 2022, 7:51 PM</string>
     <string name="view_order_details">View Order Details</string>
+    <string name="initial_item_name">BBQ Rizo</string>
+    <string name="initial_item_price">60 EGP</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.wagba;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, restaurantDataList.getRestaurant(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context,MenuActivity.class);
+                intent.putExtra("my_restaurant",restaurantDataList.getRestaurant());
+                context.startActivity(intent);
             }
         });
     }
