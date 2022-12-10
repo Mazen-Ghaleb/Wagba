@@ -55,8 +55,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="2dp"
-            android:paddingBottom="130dp"/>
+            android:paddingBottom="170dp"/>
         <!--        Padding to compensate Restaurant Card -->
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/total_price"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/design_default_color_background"
+        android:text="@string/initial_final_price"
+        android:textColor="@color/Denim"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

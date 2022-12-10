@@ -46,5 +46,15 @@
     <string name="initial_order_date">Delivered 10 Oct 2022, 7:51 PM</string>
     <string name="view_order_details">View Order Details</string>
     <string name="initial_item_name">BBQ Rizo</string>
-    <string name="initial_item_price">60 EGP</string>
+    <string name="initial_item_price">39 EGP</string>
+    <string name="price">Price</string>
+    <string name="total_price">Total Price</string>
+    <string name="initial_total_price">156 EGP</string>
+    <string name="taxes">x1.14 (Taxes)</string>
+    <string name="initial_taxes_val">178 EGP</string>
+    <string name="delivery_fee">+10 EGP (Delivery Fee)</string>
+    <string name="initial_final_cost">188 EGP</string>
+    <string name="initial_quantity">Quantity: 2</string>
+    <string name="initial_total_item_price">78 EGP</string>
+    <string name="initial_final_price">Total price is 188 EGP</string>
 </resources>

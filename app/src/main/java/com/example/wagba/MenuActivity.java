@@ -1,6 +1,9 @@
 package com.example.wagba;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,16 +12,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MenuActivity extends AppCompatActivity {
 
+    TextView totalPrice;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_menu);
 
+        totalPrice = (TextView) findViewById(R.id.total_price);
+        totalPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this,PaymentActivity.class);
+                startActivity(intent);
+            }
+        });
 
         RecyclerView menuRecyclerView = (RecyclerView) findViewById(R.id.menuRecyclerView);
         menuRecyclerView.setHasFixedSize(true);
         menuRecyclerView.setLayoutManager((new LinearLayoutManager(this)));
-        MenuItemData[] menuItemData = getKFCMenu();;
+        MenuItemData[] menuItemData = getKFCMenu();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -64,7 +77,7 @@ public class MenuActivity extends AppCompatActivity {
         return new MenuItemData[]{
                 new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
                 new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
+                new MenuItemData("Shrimp Rizo","39 EGP" ,R.drawable.kfc_shrimp_rizo),
                 new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
         };
     }

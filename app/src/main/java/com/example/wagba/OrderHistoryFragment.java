@@ -19,7 +19,10 @@ public class OrderHistoryFragment extends Fragment {
 
         RecyclerView orderRecyclerView = (RecyclerView) rootView.findViewById(R.id.orderRecyclerView);
         orderRecyclerView.setHasFixedSize(true);
-        orderRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,true));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,true);
+        linearLayoutManager.setStackFromEnd(true);
+        orderRecyclerView.setLayoutManager(linearLayoutManager);
+
 
         OrderData[] orderData = new OrderData[]{
                 new OrderData("Order #200","Delivered 10 Oct 2022, 7:51 PM","KFC",R.drawable.kfc),
