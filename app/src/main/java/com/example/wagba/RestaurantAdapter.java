@@ -58,7 +58,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            restaurantImage = (ImageView) itemView.findViewById(R.id.frequent_image);
+            restaurantImage = (ImageView) itemView.findViewById(R.id.home_restaurant_image);
         }
     }
 }

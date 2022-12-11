@@ -57,4 +57,6 @@
     <string name="initial_quantity">Quantity: 2</string>
     <string name="initial_total_item_price">78 EGP</string>
     <string name="initial_final_price">Total price is 188 EGP</string>
+    <string name="gate_txt">Choose a gate</string>
+    <string name="confirm_order">Confirm Order</string>
 </resources>

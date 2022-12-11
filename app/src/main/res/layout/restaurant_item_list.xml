@@ -14,7 +14,7 @@
         android:layout_height="100dp"
         >
             <ImageView
-                android:id="@+id/frequent_image"
+                android:id="@+id/home_restaurant_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/ic_shopping_bag" />

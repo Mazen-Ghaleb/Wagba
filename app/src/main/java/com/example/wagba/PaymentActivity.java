@@ -1,6 +1,8 @@
 package com.example.wagba;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,12 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PaymentActivity extends AppCompatActivity {
 
+    RecyclerView paymentRecyclerView;
+    Spinner gate;
+    String[] gates = new String[]{"Gate 2", "Gate 3", "Gate 5"};
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment);
 
-        RecyclerView paymentRecyclerView = (RecyclerView) findViewById(R.id.paymentRecyclerView);
+        gate = (Spinner) findViewById(R.id.gate_list);
+        ArrayAdapter<String> gateAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gates);
+        gate.setAdapter(gateAdapter);
+
+        paymentRecyclerView = (RecyclerView) findViewById(R.id.paymentRecyclerView);
         paymentRecyclerView.setHasFixedSize(true);
         paymentRecyclerView.setLayoutManager((new LinearLayoutManager(this)));
 

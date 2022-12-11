@@ -20,19 +20,6 @@
             app:drawableEndCompat="@drawable/ic_arrow_right" />
 
         <TextView
-            android:id="@+id/saved_addresses"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/textlines"
-            android:gravity="center|start"
-            android:text="@string/saved_addresses"
-            android:textColor="@color/Denim"
-            android:textSize="14sp"
-            app:drawableEndCompat="@drawable/ic_arrow_right" />
-
-        <TextView
             android:id="@+id/change_email"
             android:layout_width="match_parent"
             android:layout_height="0dp"
