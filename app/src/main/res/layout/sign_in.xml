@@ -83,7 +83,7 @@
                 android:orientation="vertical"
                 android:showDividers="middle">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_val_sign_in"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -96,7 +96,7 @@
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_val_sign_in"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -113,17 +113,6 @@
 
         </LinearLayout>
 
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/google_sign_in_btn"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="Sign in with Google" />
         <Button
             android:id="@+id/sign_in_btn"
             android:layout_width="match_parent"
@@ -131,9 +120,42 @@
             android:layout_marginTop="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:text="@string/sign_in" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/google_sign_in_btn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_registered"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/sign_up_here"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="@string/sign_up_here"
+                android:textColor="@color/Denim"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -10,7 +10,7 @@
     <string name="birthday_sign_up">Date of birth</string>
     <string name="terms_sign_up">By creating account, you accept term of use</string>
     <string name="creation_sign_up">Create account</string>
-    <string name="haveAccount_sign_up">Already have an account? <font color='#365F92'>Login</font></string>
+    <string name="haveAccount_sign_up">Already have an account?</string>
     <string name="sign_in">Sign in</string>
     <string name="Home">Home</string>
     <string name="Search">Search</string>
@@ -60,4 +60,6 @@
     <string name="gate_txt">Choose a gate</string>
     <string name="confirm_order">Confirm Order</string>
     <string name="initial_hello">Hello User</string>
+    <string name="not_registered">Not registered yet?</string>
+    <string name="sign_up_here">Sign up here</string>
 </resources>

@@ -1,12 +1,15 @@
 package com.example.wagba.view.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wagba.R;
@@ -16,13 +19,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SigninActivity extends AppCompatActivity {
 
+    TextInputEditText email;
+    TextInputEditText password;
+
+    TextView sign_up_btn;
     Button sign_in_btn;
     SignInButton googleSignInButton;
 
@@ -35,13 +45,14 @@ public class SigninActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
 
-        googleSignInButton = findViewById(R.id.google_sign_in_btn);
-        googleSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
+        email = (TextInputEditText) findViewById(R.id.email_val_sign_in);
+        password = (TextInputEditText) findViewById(R.id.password_val_sign_in);
+        sign_in_btn = (Button) findViewById(R.id.sign_in_btn);
+        googleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_btn);
+        sign_up_btn = (TextView) findViewById(R.id.sign_up_here);
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        setGooglePlusButtonText(googleSignInButton,"Sign in with Google");
 
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -49,17 +60,29 @@ public class SigninActivity extends AppCompatActivity {
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
-        firebaseAuth = FirebaseAuth.getInstance();
 
-        sign_in_btn = (Button) findViewById(R.id.sign_in_btn);
+        googleSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                googleSignIn();
+            }
+        });
+
         sign_in_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SigninActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
+                emailSignIn();
             }
         });
+
+        sign_up_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchToHomePage();
+            }
+        });
+
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -76,7 +99,33 @@ public class SigninActivity extends AppCompatActivity {
             }
         }
     }
-    void signIn(){
+
+    private void emailSignIn(){
+        String authEmail = email.getText().toString();
+        String authPassword = password.getText().toString();
+
+        if (TextUtils.isEmpty(authEmail)){
+            email.setError("Email can not be empty");
+            email.requestFocus();
+        } else if (TextUtils.isEmpty(authPassword)){
+            password.setError("Password can not be empty");
+            password.requestFocus();
+        } else {
+            firebaseAuth.signInWithEmailAndPassword(authEmail, authPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(SigninActivity.this, "Signed In successfully", Toast.LENGTH_SHORT).show();
+                        switchToHomePage();
+                    } else{
+                        Toast.makeText(SigninActivity.this, "Sign In Error: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+    private void googleSignIn(){
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent,RC_SIGN_IN);
     }
@@ -85,11 +134,29 @@ public class SigninActivity extends AppCompatActivity {
         firebaseAuth.signInWithCredential(credential)
                 .addOnSuccessListener(this,authResult -> {
                     acct.getIdToken(); // We can save client stuff here in db
-                    startActivity(new Intent(SigninActivity.this,HomeActivity.class));
-                    finish();
+                    Toast.makeText(this, "Sign In Success: ", Toast.LENGTH_SHORT).show();
+                    switchToHomePage();
                 })
                 .addOnFailureListener(this, e -> {
-                    Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Sign In Error: "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    protected void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
+        // Find the TextView that is inside of the SignInButton and set its text
+        for (int i = 0; i < signInButton.getChildCount(); i++) {
+            View v = signInButton.getChildAt(i);
+
+            if (v instanceof TextView) {
+                TextView tv = (TextView) v;
+                tv.setText(buttonText);
+                return;
+            }
+        }
+    }
+    private void switchToHomePage(){
+        Intent intent = new Intent(SigninActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
