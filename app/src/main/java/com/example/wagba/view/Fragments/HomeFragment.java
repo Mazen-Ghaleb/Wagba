@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,14 +13,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wagba.R;
+import com.example.wagba.view.Activities.HomeActivity;
 import com.example.wagba.view.Adapters.RestaurantAdapter;
 import com.example.wagba.view.AdapterData.RestaurantData;
 
 public class HomeFragment extends Fragment {
+
+    TextView helloUser;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment,container,false);
+
+        helloUser = (TextView) rootView.findViewById(R.id.hello_user);
+        ((HomeActivity)getActivity()).setProfileData(helloUser);
 
         View currentOrder = (View) rootView.findViewById(R.id.current_order_card);
         currentOrder.setOnClickListener(new View.OnClickListener() {
@@ -65,4 +73,5 @@ public class HomeFragment extends Fragment {
 
         return rootView;
     }
+
 }

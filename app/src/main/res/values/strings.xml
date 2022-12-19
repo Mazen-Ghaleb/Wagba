@@ -59,4 +59,5 @@
     <string name="initial_final_price">Total price is 188 EGP</string>
     <string name="gate_txt">Choose a gate</string>
     <string name="confirm_order">Confirm Order</string>
+    <string name="initial_hello">Hello User</string>
 </resources>
