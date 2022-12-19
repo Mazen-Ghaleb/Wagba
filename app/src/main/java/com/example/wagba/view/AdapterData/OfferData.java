@@ -1,4 +1,4 @@
-package com.example.wagba;
+package com.example.wagba.view.AdapterData;
 
 public class OfferData {
     private String title;

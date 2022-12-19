@@ -1,6 +1,5 @@
-package com.example.wagba;
+package com.example.wagba.view.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.wagba.R;
+import com.example.wagba.view.Adapters.RestaurantAdapter;
+import com.example.wagba.view.AdapterData.RestaurantData;
 
 public class HomeFragment extends Fragment {
     @Nullable

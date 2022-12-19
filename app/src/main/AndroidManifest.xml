@@ -21,44 +21,44 @@
             android:value="AIzaSyB-vZiZD-sCIiRjnqu9fFPg_lMihKmk7R4"
             />
         <activity
-            android:name=".SigninActivity"
+            android:name=".view.Activities.SigninActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name=".view.Activities.SignupActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MenuActivity"
-            android:parentActivityName=".HomeActivity"
+            android:name=".view.Activities.MenuActivity"
+            android:parentActivityName=".view.Activities.HomeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".view.Activities.HomeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PaymentActivity"
-            android:parentActivityName=".MenuActivity"
+            android:name=".view.Activities.PaymentActivity"
+            android:parentActivityName=".view.Activities.MenuActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

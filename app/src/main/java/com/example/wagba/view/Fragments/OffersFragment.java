@@ -1,4 +1,4 @@
-package com.example.wagba;
+package com.example.wagba.view.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.wagba.view.Adapters.OfferAdapter;
+import com.example.wagba.view.AdapterData.OfferData;
+import com.example.wagba.R;
 
 public class OffersFragment extends Fragment {
     @Nullable

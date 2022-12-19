@@ -1,4 +1,4 @@
-package com.example.wagba;
+package com.example.wagba.view.Activities;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -8,6 +8,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.wagba.view.Adapters.PaymentAdapter;
+import com.example.wagba.view.AdapterData.PaymentData;
+import com.example.wagba.R;
 
 public class PaymentActivity extends AppCompatActivity {
 

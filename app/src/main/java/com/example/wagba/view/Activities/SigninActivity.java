@@ -1,4 +1,4 @@
-package com.example.wagba;
+package com.example.wagba.view.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.wagba.R;
 
 public class SigninActivity extends AppCompatActivity {
 
@@ -20,7 +22,7 @@ public class SigninActivity extends AppCompatActivity {
         sign_in_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SigninActivity.this,HomeActivity.class);
+                Intent intent = new Intent(SigninActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }

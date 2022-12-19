@@ -1,4 +1,4 @@
-package com.example.wagba;
+package com.example.wagba.view.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wagba.view.AdapterData.MenuItemData;
+import com.example.wagba.R;
 
-public class MenuItemAdapter extends RecyclerView.Adapter<com.example.wagba.MenuItemAdapter.ViewHolder>{
+
+public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHolder>{
 
     MenuItemData[] menuItemData;
     Context context;
@@ -25,16 +28,16 @@ public class MenuItemAdapter extends RecyclerView.Adapter<com.example.wagba.Menu
 
     @NonNull
     @Override
-    public com.example.wagba.MenuItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MenuItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.menu_item_list,parent,false);
-        com.example.wagba.MenuItemAdapter.ViewHolder viewHolder = new com.example.wagba.MenuItemAdapter.ViewHolder(view);
+        MenuItemAdapter.ViewHolder viewHolder = new MenuItemAdapter.ViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.example.wagba.MenuItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MenuItemAdapter.ViewHolder holder, int position) {
         final MenuItemData menuItemDataList = menuItemData[position];
         holder.itemName.setText(menuItemDataList.getItemName());
         holder.itemPrice.setText(menuItemDataList.getItemPrice());

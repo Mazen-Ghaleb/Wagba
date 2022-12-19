@@ -1,4 +1,4 @@
-package com.example.wagba;
+package com.example.wagba.view.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class OrderAdapter extends RecyclerView.Adapter<com.example.wagba.OrderAdapter.ViewHolder>{
+import com.example.wagba.view.AdapterData.OrderData;
+import com.example.wagba.R;
+
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     OrderData[] orderData;
     Context context;
@@ -24,16 +27,16 @@ public class OrderAdapter extends RecyclerView.Adapter<com.example.wagba.OrderAd
 
     @NonNull
     @Override
-    public com.example.wagba.OrderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OrderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.history_item_list,parent,false);
-        com.example.wagba.OrderAdapter.ViewHolder viewHolder = new com.example.wagba.OrderAdapter.ViewHolder(view);
+        OrderAdapter.ViewHolder viewHolder = new OrderAdapter.ViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.example.wagba.OrderAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
         final OrderData orderDataList = orderData[position];
         holder.orderNumber.setText(orderDataList.getOrderNumber());
         holder.orderDate.setText(orderDataList.getOrderDate());

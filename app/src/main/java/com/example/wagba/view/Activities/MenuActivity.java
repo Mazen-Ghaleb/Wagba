@@ -1,4 +1,4 @@
-package com.example.wagba;
+package com.example.wagba.view.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.wagba.view.Adapters.MenuItemAdapter;
+import com.example.wagba.view.AdapterData.MenuItemData;
+import com.example.wagba.R;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -23,7 +27,7 @@ public class MenuActivity extends AppCompatActivity {
         totalPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this,PaymentActivity.class);
+                Intent intent = new Intent(MenuActivity.this, PaymentActivity.class);
                 startActivity(intent);
             }
         });

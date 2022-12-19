@@ -1,12 +1,12 @@
-package com.example.wagba;
+package com.example.wagba.view.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.TextView;
+
+import com.example.wagba.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void switchPage(){
-        Intent intent = new Intent(MainActivity.this,SignupActivity.class);
+        Intent intent = new Intent(MainActivity.this, SignupActivity.class);
         startActivity(intent);
         finish();
     }

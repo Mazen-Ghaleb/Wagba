@@ -1,4 +1,4 @@
-package com.example.wagba;
+package com.example.wagba.view.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PaymentAdapter extends RecyclerView.Adapter<com.example.wagba.PaymentAdapter.ViewHolder>{
+import com.example.wagba.view.AdapterData.PaymentData;
+import com.example.wagba.R;
+
+public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder>{
 
     PaymentData[] paymentData;
     Context context;
@@ -24,16 +27,16 @@ public class PaymentAdapter extends RecyclerView.Adapter<com.example.wagba.Payme
 
     @NonNull
     @Override
-    public com.example.wagba.PaymentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PaymentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.payment_item_list,parent,false);
-        com.example.wagba.PaymentAdapter.ViewHolder viewHolder = new com.example.wagba.PaymentAdapter.ViewHolder(view);
+        PaymentAdapter.ViewHolder viewHolder = new PaymentAdapter.ViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.example.wagba.PaymentAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PaymentAdapter.ViewHolder holder, int position) {
         final PaymentData paymentDataList = paymentData[position];
         holder.itemName.setText(paymentDataList.getItemName());
         holder.itemPrice.setText(paymentDataList.getItemPrice());

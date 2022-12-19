@@ -1,4 +1,4 @@
-package com.example.wagba;
+package com.example.wagba.view.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.wagba.view.Activities.MenuActivity;
+import com.example.wagba.R;
+import com.example.wagba.view.AdapterData.RestaurantData;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder>{
 
@@ -41,7 +45,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, restaurantDataList.getRestaurant(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context,MenuActivity.class);
+                Intent intent = new Intent(context, MenuActivity.class);
                 intent.putExtra("my_restaurant",restaurantDataList.getRestaurant());
                 context.startActivity(intent);
             }

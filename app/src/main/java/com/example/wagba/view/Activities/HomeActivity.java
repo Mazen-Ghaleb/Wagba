@@ -1,16 +1,18 @@
-package com.example.wagba;
+package com.example.wagba.view.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 
+import com.example.wagba.view.Fragments.HomeFragment;
+import com.example.wagba.view.Fragments.OffersFragment;
+import com.example.wagba.view.Fragments.OrderHistoryFragment;
+import com.example.wagba.view.Fragments.SearchFragment;
+import com.example.wagba.view.Fragments.SettingsFragment;
+import com.example.wagba.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
