@@ -56,10 +56,13 @@
     <string name="initial_final_cost">188 EGP</string>
     <string name="initial_quantity">Quantity: 2</string>
     <string name="initial_total_item_price">78 EGP</string>
-    <string name="initial_final_price">Total price is 188 EGP</string>
+    <string name="initial_final_price">Total price is 0.00 EGP</string>
     <string name="gate_txt">Choose a gate</string>
     <string name="confirm_order">Confirm Order</string>
     <string name="initial_hello">Hello User</string>
     <string name="not_registered">Not registered yet?</string>
     <string name="sign_up_here">Sign up here</string>
+    <string name="initial_item_quantity">0</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 </resources>

@@ -2,7 +2,11 @@ package com.example.wagba.view.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -10,20 +14,38 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wagba.view.Adapters.MenuItemAdapter;
+import com.bumptech.glide.Glide;
 import com.example.wagba.view.AdapterData.MenuItemData;
 import com.example.wagba.R;
+import com.example.wagba.view.Adapters.MenuItemAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity {
 
+    ImageView restaurantBanner;
+    TextView restaurantName;
     TextView totalPrice;
+    FirebaseDatabase firebaseDatabase;
+
+    Double totalPriceValue;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_menu);
 
+        totalPriceValue = 0.0;
+        firebaseDatabase = FirebaseDatabase.getInstance("https://wagba-22208-default-rtdb.europe-west1.firebasedatabase.app");
+
+        restaurantBanner = (ImageView) findViewById(R.id.restaurant_banner);
+        restaurantName = (TextView) findViewById(R.id.restaurant_name);
         totalPrice = (TextView) findViewById(R.id.total_price);
+
         totalPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,127 +57,107 @@ public class MenuActivity extends AppCompatActivity {
         RecyclerView menuRecyclerView = (RecyclerView) findViewById(R.id.menuRecyclerView);
         menuRecyclerView.setHasFixedSize(true);
         menuRecyclerView.setLayoutManager((new LinearLayoutManager(this)));
-        MenuItemData[] menuItemData = getKFCMenu();
+        Restaurant restaurant = null;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String restaurantName = extras.getString("my_restaurant");
+            getRestaurant(extras.getString("my_restaurant"), new OnGetDataListener() {
+                @Override
+                public void onSuccess(Restaurant restaurant) {
+                    restaurantName.setText(restaurant.getName());
+                    Glide.with(MenuActivity.this).load(restaurant.getBanner()).into(restaurantBanner);
+                    MenuItemAdapter menuAdapter = new MenuItemAdapter(restaurant.getMenuItems(), MenuActivity.this, new MenuItemAdapter.QuantityChangeListener() {
+                        @Override
+                        public void onQuantityChange(Integer quantityDifference,  Double itemPrice) {
+//                            totalPriceValue = totalPriceValue + (newQuantity-oldQuantity)*itemPrice;
+                            totalPriceValue = totalPriceValue + (quantityDifference)*itemPrice;
+                            totalPrice.setText("Total price is "+String.format("%.2f", totalPriceValue)+" EGP");
+                        }
+                    });
+                    menuRecyclerView.setAdapter(menuAdapter);
+                    Log.d("firebaseDatabase", "Success");
+                }
+                @Override
+                public void onStart() {
+                    //when starting
+                    Log.d("firebaseDatabase", "Started");
+                }
 
-                    switch (restaurantName){
-                        case "KFC":
-                            menuItemData = getKFCMenu();
-                            break;
-                        case"McDonald's":
-                            menuItemData = getMcDonaldMenu();
-                            break;
-                        case "Papa John's":
-                            menuItemData = getPapaJohnMenu();
-                            break;
-                        case "Hardee's":
-                            menuItemData = getHardeeMenu();
-                            break;
-                        case "Pizza Hut":
-                            menuItemData = getPizzaHutMenu();
-                            break;
-                        case "Heart Attack":
-                            menuItemData = getHeartAttackMenu();
-                            break;
-                        case "City Crepe":
-                            menuItemData = getCityCrepeMenu();
-                            break;
-                        case "Burger King":
-                            menuItemData = getBurgerKingMenu();
-                            break;
-                        case "Buffalo Burger":
-                            menuItemData = getBuffaloBurgerMenu();
-                            break;
-                        case "Domino's Pizza":
-                            menuItemData = getDominoPizzaMenu();
-                            break;
-                    }
+                @Override
+                public void onFailure() {
+                    Log.d("firebaseDatabase", "Failed");
+                }
+            });
         }
-        MenuItemAdapter menuAdapter = new MenuItemAdapter(menuItemData,this);
-        menuRecyclerView.setAdapter(menuAdapter);
-    }
-    MenuItemData[] getKFCMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","39 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
-    }
-    MenuItemData[] getMcDonaldMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
-    }
-    MenuItemData[] getPapaJohnMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
-    }
-    MenuItemData[] getHardeeMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
-    }
-    MenuItemData[] getPizzaHutMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
-    }
-    MenuItemData[] getHeartAttackMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
-    }
-    MenuItemData[] getCityCrepeMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
-    }
-    MenuItemData[] getBurgerKingMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
-    }
-    MenuItemData[] getBuffaloBurgerMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
-    }
-    MenuItemData[] getDominoPizzaMenu() {
-        return new MenuItemData[]{
-                new MenuItemData("Rizo","39 EGP" ,R.drawable.kfc_rizo),
-                new MenuItemData("Mega Rizo","69 EGP" ,R.drawable.kfc_mega_rizo),
-                new MenuItemData("Shrimp Rizo","54 EGP" ,R.drawable.kfc_shrimp_rizo),
-                new MenuItemData("Dinner Combo","103 EGP" ,R.drawable.kfc_dinner_combo),
-        };
     }
 
+    void getRestaurant(String restaurantName, final OnGetDataListener listener){
+         firebaseDatabase.getReference(restaurantName).addValueEventListener(new ValueEventListener() {
+             @Override
+             public void onDataChange(DataSnapshot dataSnapshot) {
+                 ArrayList<MenuItemData> menuItems = new ArrayList<MenuItemData>();
+                 // This method is called once with the initial value and again
+                 // whenever data at this location is updated.
+                 String banner = dataSnapshot.child("banner").getValue().toString();
+                 for (DataSnapshot menuItem : dataSnapshot.child("MenuItems").getChildren()) {
+                     menuItems.add(new MenuItemData(menuItem.child("name").getValue().toString(),
+                                     menuItem.child("price").getValue().toString(),
+                                     menuItem.child("picture").getValue().toString()));
+                 }
+                 listener.onSuccess(new Restaurant(restaurantName,banner,menuItems));
+             }
+
+             @Override
+             public void onCancelled(DatabaseError error) {
+                 // Failed to read value
+                 listener.onFailure();
+             }
+         });
+    }
+
+    public class Restaurant {
+        private String name;
+        private String banner;
+        private ArrayList<MenuItemData> menuItems;
+
+        public Restaurant(String name, String banner, ArrayList<MenuItemData> menuItems) {
+            this.name = name;
+            this.banner = banner;
+            this.menuItems = menuItems;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getBanner() {
+            return banner;
+        }
+
+        public void setBanner(String banner) {
+            this.banner = banner;
+        }
+
+        public ArrayList<MenuItemData> getMenuItems() {
+            return menuItems;
+        }
+
+        public void setMenuItems(ArrayList<MenuItemData> menuItems) {
+            this.menuItems = menuItems;
+        }
+
+        public void addMenuItem(MenuItemData menuItem) {
+            this.menuItems.add(menuItem);
+        }
+    }
+    public interface OnGetDataListener {
+        //this is for callbacks
+        void onSuccess(Restaurant restaurant);
+        void onStart();
+        void onFailure();
+    }
 }

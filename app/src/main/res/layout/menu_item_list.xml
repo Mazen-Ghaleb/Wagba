@@ -38,8 +38,9 @@
                 android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.2"
-                android:orientation="vertical">
+                android:layout_weight="1.8"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp">
 
                 <TextView
                     android:id="@+id/item_name"
@@ -58,27 +59,38 @@
                     android:orientation="horizontal">
                     <Button
                         android:id="@+id/add_item_btn"
-                        android:layout_marginRight="20dp"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="+" />
+                        android:text="@string/plus" />
+
+                    <TextView
+                        android:id="@+id/item_quantity"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:inputType="numberSigned"
+                        android:text="@string/initial_item_quantity"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                     <Button
                         android:id="@+id/remove_item_btn"
-                        android:layout_marginRight="20dp"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="-" />
+                        android:text="@string/minus" />
                 </LinearLayout>
 
             </LinearLayout>
             <TextView
+                android:layout_marginStart="10dp"
                 android:id="@+id/item_price"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/black"

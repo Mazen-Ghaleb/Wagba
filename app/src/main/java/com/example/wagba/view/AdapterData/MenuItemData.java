@@ -3,9 +3,9 @@ package com.example.wagba.view.AdapterData;
 public class MenuItemData {
     private String itemName;
     private String itemPrice;
-    private Integer itemImage;
+    private String itemImage;
 
-    public MenuItemData(String itemName, String itemPrice, Integer itemImage) {
+    public MenuItemData(String itemName, String itemPrice, String itemImage) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemImage = itemImage;
@@ -27,11 +27,11 @@ public class MenuItemData {
         this.itemPrice = itemPrice;
     }
 
-    public Integer getItemImage() {
+    public String getItemImage() {
         return itemImage;
     }
 
-    public void setItemImage(Integer itemImage) {
+    public void setItemImage(String itemImage) {
         this.itemImage = itemImage;
     }
 }
