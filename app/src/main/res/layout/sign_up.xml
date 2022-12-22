@@ -178,6 +178,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:layout_marginTop="-10dp"
+
                     android:background="@drawable/rounded_edittext"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
@@ -201,6 +203,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/gender_val_sign_up"
+                    android:layout_marginTop="-10dp"
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
                     android:layout_weight="1"
@@ -212,7 +215,6 @@
                         android:id="@+id/tabLayout"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_margin="1dp"
                         android:backgroundTint="@color/Denim"
                         app:tabBackground="@drawable/tabs_selector"
                         app:tabGravity="fill"
@@ -241,15 +243,15 @@
                     android:id="@+id/birthday_val_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginTop="-10dp"
                     android:layout_weight="1"
-                    android:layout_marginTop="-20dp"
                     android:background="@drawable/rounded_edittext"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center|left"
-                    android:inputType="date"
+                    android:inputType="numberSigned"
                     android:paddingLeft="20dp"
                     android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
