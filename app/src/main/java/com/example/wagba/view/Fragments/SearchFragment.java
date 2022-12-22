@@ -12,10 +12,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wagba.R;
-import com.example.wagba.view.AdapterData.RestaurantData;
+import com.example.wagba.view.AdapterData.Restaurant;
 import com.example.wagba.view.Adapters.SearchAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
+
+    FirebaseDatabase firebaseDatabase;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,16 +33,53 @@ public class SearchFragment extends Fragment {
         RecyclerView searchRecyclerView = (RecyclerView) rootView.findViewById(R.id.searchRecyclerView);
         searchRecyclerView.setHasFixedSize(true);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        firebaseDatabase = FirebaseDatabase.getInstance("https://wagba-22208-default-rtdb.europe-west1.firebasedatabase.app");
 
-        RestaurantData[] searchData = new RestaurantData[]{
-                new RestaurantData("KFC",R.drawable.kfc),
-                new RestaurantData("McDonald's",R.drawable.mc_donalds),
-                new RestaurantData("Papa John's",R.drawable.papa_johns),
-        };
+        getAllRestaurants(new OnGetDataListener() {
+            @Override
+            public void onSuccess(ArrayList<Restaurant> restaurants) {
+                SearchAdapter searchAdapter = new SearchAdapter(restaurants,getActivity());
+                searchRecyclerView.setAdapter(searchAdapter);
+            }
 
-        SearchAdapter searchAdapter = new SearchAdapter(searchData,getActivity());
-        searchRecyclerView.setAdapter(searchAdapter);
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
 
         return rootView;
+    }
+    void getAllRestaurants(final OnGetDataListener listener){
+        firebaseDatabase.getReference("Restaurants").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                for (DataSnapshot restaurant : dataSnapshot.getChildren()) {
+                    restaurants.add(new Restaurant(restaurant.child("name").getValue().toString(),
+                            restaurant.child("logo").getValue().toString()));
+                }
+                listener.onSuccess(restaurants);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                listener.onFailure();
+            }
+        });
+    }
+    public interface OnGetDataListener {
+        //this is for callbacks
+        void onSuccess(ArrayList<Restaurant> restaurants);
+        void onStart();
+        void onFailure();
     }
 }

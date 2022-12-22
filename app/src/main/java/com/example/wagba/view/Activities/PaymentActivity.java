@@ -17,7 +17,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     RecyclerView paymentRecyclerView;
     Spinner gate;
-    String[] gates = new String[]{"Gate 2", "Gate 3", "Gate 5"};
+    String[] gates = new String[]{"Gate 3", "Gate 4"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

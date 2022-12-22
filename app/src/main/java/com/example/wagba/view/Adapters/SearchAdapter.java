@@ -13,15 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.wagba.view.Activities.MenuActivity;
 import com.example.wagba.R;
-import com.example.wagba.view.AdapterData.RestaurantData;
+import com.example.wagba.view.AdapterData.Restaurant;
+
+import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
-    RestaurantData[] searchData;
+    ArrayList<Restaurant> searchData;
     Context context;
 
-    public SearchAdapter (RestaurantData[] searchData, FragmentActivity activity) {
+    public SearchAdapter (ArrayList<Restaurant> searchData, FragmentActivity activity) {
         this.searchData = searchData;
         this.context = activity;
     }
@@ -38,16 +41,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
-        final RestaurantData searchDataList = searchData[position];
-        holder.searchRestaurant.setText(searchDataList.getRestaurant());
-        holder.restaurantImage.setImageResource(searchDataList.getRestaurantImage());
+        final Restaurant searchDataList = searchData.get(position);
+        holder.searchRestaurant.setText(searchDataList.getName());
+        Glide.with(context).load(searchDataList.getLogo()).into(holder.restaurantImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, searchDataList.getRestaurant(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, searchDataList.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, MenuActivity.class);
-                intent.putExtra("my_restaurant",searchDataList.getRestaurant());
+                intent.putExtra("my_restaurant",searchDataList.getName());
                 context.startActivity(intent);
             }
         });
@@ -55,7 +58,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return searchData.length;
+        return searchData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

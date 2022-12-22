@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.wagba.view.AdapterData.MenuItemData;
 import com.example.wagba.R;
+import com.example.wagba.view.AdapterData.Restaurant;
 import com.example.wagba.view.Adapters.MenuItemAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -98,13 +99,14 @@ public class MenuActivity extends AppCompatActivity {
                  ArrayList<MenuItemData> menuItems = new ArrayList<MenuItemData>();
                  // This method is called once with the initial value and again
                  // whenever data at this location is updated.
+                 String logo = dataSnapshot.child("logo").getValue().toString();
                  String banner = dataSnapshot.child("banner").getValue().toString();
                  for (DataSnapshot menuItem : dataSnapshot.child("MenuItems").getChildren()) {
                      menuItems.add(new MenuItemData(menuItem.child("name").getValue().toString(),
                                      menuItem.child("price").getValue().toString(),
                                      menuItem.child("picture").getValue().toString()));
                  }
-                 listener.onSuccess(new Restaurant(restaurantName,banner,menuItems));
+                 listener.onSuccess(new Restaurant(restaurantName,logo,banner,menuItems));
              }
 
              @Override
@@ -115,45 +117,6 @@ public class MenuActivity extends AppCompatActivity {
          });
     }
 
-    public class Restaurant {
-        private String name;
-        private String banner;
-        private ArrayList<MenuItemData> menuItems;
-
-        public Restaurant(String name, String banner, ArrayList<MenuItemData> menuItems) {
-            this.name = name;
-            this.banner = banner;
-            this.menuItems = menuItems;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getBanner() {
-            return banner;
-        }
-
-        public void setBanner(String banner) {
-            this.banner = banner;
-        }
-
-        public ArrayList<MenuItemData> getMenuItems() {
-            return menuItems;
-        }
-
-        public void setMenuItems(ArrayList<MenuItemData> menuItems) {
-            this.menuItems = menuItems;
-        }
-
-        public void addMenuItem(MenuItemData menuItem) {
-            this.menuItems.add(menuItem);
-        }
-    }
     public interface OnGetDataListener {
         //this is for callbacks
         void onSuccess(Restaurant restaurant);
