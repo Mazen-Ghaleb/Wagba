@@ -143,11 +143,11 @@ public class SigninActivity extends AppCompatActivity {
                     UserData user = new UserData(acct.getGivenName(), acct.getFamilyName(),acct.getEmail(),"","");
 
                     firebaseDatabase.getReference("Users")
-                            .child(acct.getIdToken())
+                            .child(acct.getId())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(SigninActivity.this, "Sign In Success: ", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SigninActivity.this, "Sign In Success", Toast.LENGTH_SHORT).show();
                                     switchPage(HomeActivity.class,true);
                                 }
                             });
