@@ -92,7 +92,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     void getRestaurant(String restaurantName, final OnGetDataListener listener){
-         firebaseDatabase.getReference(restaurantName).addValueEventListener(new ValueEventListener() {
+         firebaseDatabase.getReference("Restaurants").child(restaurantName).addValueEventListener(new ValueEventListener() {
              @Override
              public void onDataChange(DataSnapshot dataSnapshot) {
                  ArrayList<MenuItemData> menuItems = new ArrayList<MenuItemData>();

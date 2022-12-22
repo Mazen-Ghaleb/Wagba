@@ -13,12 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wagba.R;
+import com.example.wagba.view.AdapterData.UserData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class SignupActivity extends AppCompatActivity {
     TextView sign_in_btn;
     Button sign_up_btn;
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
         });
 
         firebaseAuth = FirebaseAuth.getInstance();
-
+        firebaseDatabase = FirebaseDatabase.getInstance("https://wagba-22208-default-rtdb.europe-west1.firebasedatabase.app");
     }
 
     private void createUser(){
@@ -74,6 +77,7 @@ public class SignupActivity extends AppCompatActivity {
         String authPassword = password.getText().toString();
         String authConfirmedPassword = confirmPassword.getText().toString();
         String authDateOfBirth = dateOfBirth.getText().toString();
+        String authGender = "Male";
 
         if (TextUtils.isEmpty(authFName)){
             fName.setError("First Name can not be empty");
@@ -98,14 +102,25 @@ public class SignupActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        Toast.makeText(SignupActivity.this, "Signed Up successfully", Toast.LENGTH_SHORT).show();
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(authFName+" "+authLName)
                                 .setPhotoUri(Uri.parse("https://cdn-icons-png.flaticon.com/512/1077/1077114.png"))
                                 .build();
                         firebaseAuth.getCurrentUser().updateProfile(profileUpdates);
-                        firebaseAuth.signOut(); // To make sure user passes through Sign in page
-                        switchToSignInPage();
+
+                        // Saving user information in firebase Database
+                        UserData user = new UserData(authFName,authLName,authEmail,authDateOfBirth,authGender);
+
+                        firebaseDatabase.getReference("Users")
+                                .child(firebaseAuth.getCurrentUser().getUid())
+                                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(SignupActivity.this, "Signed Up successfully", Toast.LENGTH_SHORT).show();
+                                        firebaseAuth.signOut(); // To make sure user passes through Sign in page
+                                        switchToSignInPage();
+                                    }
+                                });
                     } else {
                         Toast.makeText(SignupActivity.this, "Sign Up Error: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }

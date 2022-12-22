@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wagba.R;
+import com.example.wagba.view.AdapterData.UserData;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SigninActivity extends AppCompatActivity {
 
@@ -38,6 +40,7 @@ public class SigninActivity extends AppCompatActivity {
 
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
     static int RC_SIGN_IN = 3331;
 
     @Override
@@ -51,6 +54,7 @@ public class SigninActivity extends AppCompatActivity {
         googleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_btn);
         sign_up_btn = (TextView) findViewById(R.id.sign_up_here);
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance("https://wagba-22208-default-rtdb.europe-west1.firebasedatabase.app");
 
         setGooglePlusButtonText(googleSignInButton,"Sign in with Google");
 
@@ -78,7 +82,7 @@ public class SigninActivity extends AppCompatActivity {
         sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchToHomePage();
+                switchPage(SignupActivity.class,true);;
             }
         });
 
@@ -116,7 +120,7 @@ public class SigninActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         Toast.makeText(SigninActivity.this, "Signed In successfully", Toast.LENGTH_SHORT).show();
-                        switchToHomePage();
+                        switchPage(HomeActivity.class,true);
                     } else{
                         Toast.makeText(SigninActivity.this, "Sign In Error: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -133,9 +137,20 @@ public class SigninActivity extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(),null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnSuccessListener(this,authResult -> {
-                    acct.getIdToken(); // We can save client stuff here in db
-                    Toast.makeText(this, "Sign In Success: ", Toast.LENGTH_SHORT).show();
-                    switchToHomePage();
+
+
+                    // Saving user information in firebase Database
+                    UserData user = new UserData(acct.getGivenName(), acct.getFamilyName(),acct.getEmail(),"","");
+
+                    firebaseDatabase.getReference("Users")
+                            .child(acct.getIdToken())
+                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(SigninActivity.this, "Sign In Success: ", Toast.LENGTH_SHORT).show();
+                                    switchPage(HomeActivity.class,true);
+                                }
+                            });
                 })
                 .addOnFailureListener(this, e -> {
                     Toast.makeText(this, "Sign In Error: "+ e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -154,9 +169,9 @@ public class SigninActivity extends AppCompatActivity {
             }
         }
     }
-    private void switchToHomePage(){
-        Intent intent = new Intent(SigninActivity.this, HomeActivity.class);
+    public void switchPage(Class activityClass, boolean finish){
+        Intent intent = new Intent(SigninActivity.this, activityClass);
         startActivity(intent);
-        finish();
+        if (finish) {finish();}
     }
 }
