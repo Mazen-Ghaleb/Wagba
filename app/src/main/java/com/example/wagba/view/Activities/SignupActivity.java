@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends BaseActivity {
 
     TextInputEditText fName;
     TextInputEditText lName;
@@ -41,8 +41,6 @@ public class SignupActivity extends AppCompatActivity {
 
     TextView sign_in_btn;
     Button sign_up_btn;
-    FirebaseAuth firebaseAuth;
-    FirebaseDatabase firebaseDatabase;
     String current;
     String initialDateOfBirth;
     Calendar calender;
@@ -59,8 +57,7 @@ public class SignupActivity extends AppCompatActivity {
         confirmPassword = (TextInputEditText) findViewById(R.id.confirm_password_val);
         dateOfBirth = (TextInputEditText) findViewById(R.id.birthday_val_sign_up);
         genderPos = (TabLayout) findViewById(R.id.tabLayout);
-        gender = "Male";
-
+        gender = "Male"; // Initial Value
 
         sign_in_btn = (TextView) findViewById(R.id.sign_in_here);
         sign_up_btn = (Button) findViewById(R.id.sign_up_btn);
@@ -69,7 +66,6 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 gender =tab.getText().toString();
-//                Toast.makeText(SignupActivity.this, gender, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -86,7 +82,6 @@ public class SignupActivity extends AppCompatActivity {
         calender = Calendar.getInstance();
         initialDateOfBirth = "DDMMYYYY";
         current = "";
-
 
         dateOfBirth.addTextChangedListener(new TextWatcher() {
             @Override
@@ -120,7 +115,7 @@ public class SignupActivity extends AppCompatActivity {
                         if (mon > 12) mon = 12;
                         calender.set(Calendar.MONTH, mon - 1);
 
-                        year = (year < 1900) ? 1900 : (year > 2100) ? 2100 : year;
+                        year = (year < 1900) ? 1900 : (year > 2022) ? 2022 : year;
                         calender.set(Calendar.YEAR, year);
                         // ^ first set year for the line below to work correctly
                         //with leap years - otherwise, date e.g. 29/02/2012
@@ -148,7 +143,7 @@ public class SignupActivity extends AppCompatActivity {
         sign_in_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchToSignInPage();
+                switchPage(SigninActivity.class, true);
             }
         });
 
@@ -159,8 +154,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance("https://wagba-22208-default-rtdb.europe-west1.firebasedatabase.app");
     }
 
     private void createUser(){
@@ -205,16 +198,17 @@ public class SignupActivity extends AppCompatActivity {
                         firebaseAuth.getCurrentUser().updateProfile(profileUpdates);
 
                         // Saving user information in firebase Database
-                        UserData user = new UserData(authFName,authLName,authEmail,authDateOfBirth,authGender);
+                        String userId = firebaseAuth.getCurrentUser().getUid();
+                        UserData user = new UserData(userId, authFName,authLName,authEmail,authDateOfBirth,authGender);
 
                         firebaseDatabase.getReference("Users")
-                                .child(firebaseAuth.getCurrentUser().getUid())
+                                .child(userId)
                                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         Toast.makeText(SignupActivity.this, "Signed Up successfully", Toast.LENGTH_SHORT).show();
                                         firebaseAuth.signOut(); // To make sure user passes through Sign in page
-                                        switchToSignInPage();
+                                        switchPage(SigninActivity.class, true);
                                     }
                                 });
                     } else {
@@ -224,12 +218,5 @@ public class SignupActivity extends AppCompatActivity {
             });
 
         }
-    }
-
-
-    private void switchToSignInPage(){
-        Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
-        startActivity(intent);
-        finish();
     }
 }

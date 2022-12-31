@@ -15,7 +15,7 @@ import com.example.wagba.view.Adapters.OfferAdapter;
 import com.example.wagba.view.AdapterData.OfferData;
 import com.example.wagba.R;
 
-public class OffersFragment extends Fragment {
+public class OffersFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

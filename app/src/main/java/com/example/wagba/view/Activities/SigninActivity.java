@@ -29,7 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SigninActivity extends AppCompatActivity {
+public class SigninActivity extends BaseActivity {
 
     TextInputEditText email;
     TextInputEditText password;
@@ -39,8 +39,6 @@ public class SigninActivity extends AppCompatActivity {
     SignInButton googleSignInButton;
 
     GoogleSignInClient googleSignInClient;
-    FirebaseAuth firebaseAuth;
-    FirebaseDatabase firebaseDatabase;
     static int RC_SIGN_IN = 3331;
 
     @Override
@@ -53,8 +51,6 @@ public class SigninActivity extends AppCompatActivity {
         sign_in_btn = (Button) findViewById(R.id.sign_in_btn);
         googleSignInButton = (SignInButton) findViewById(R.id.google_sign_in_btn);
         sign_up_btn = (TextView) findViewById(R.id.sign_up_here);
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance("https://wagba-22208-default-rtdb.europe-west1.firebasedatabase.app");
 
         setGooglePlusButtonText(googleSignInButton,"Sign in with Google");
 
@@ -140,7 +136,7 @@ public class SigninActivity extends AppCompatActivity {
 
 
                     // Saving user information in firebase Database
-                    UserData user = new UserData(acct.getGivenName(), acct.getFamilyName(),acct.getEmail(),"","");
+                    UserData user = new UserData(acct.getId().toString(),acct.getGivenName(), acct.getFamilyName(),acct.getEmail(),"","");
 
                     firebaseDatabase.getReference("Users")
                             .child(acct.getId())
@@ -168,10 +164,5 @@ public class SigninActivity extends AppCompatActivity {
                 return;
             }
         }
-    }
-    public void switchPage(Class activityClass, boolean finish){
-        Intent intent = new Intent(SigninActivity.this, activityClass);
-        startActivity(intent);
-        if (finish) {finish();}
     }
 }

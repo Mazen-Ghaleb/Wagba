@@ -15,7 +15,7 @@ import com.example.wagba.view.Adapters.OrderAdapter;
 import com.example.wagba.view.AdapterData.OrderData;
 import com.example.wagba.R;
 
-public class OrderHistoryFragment extends Fragment {
+public class OrderHistoryFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

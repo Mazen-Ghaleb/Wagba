@@ -26,12 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends BaseActivity {
 
     ImageView restaurantBanner;
     TextView restaurantName;
     TextView totalPrice;
-    FirebaseDatabase firebaseDatabase;
 
     Double totalPriceValue;
 
@@ -41,7 +40,6 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.restaurant_menu);
 
         totalPriceValue = 0.0;
-        firebaseDatabase = FirebaseDatabase.getInstance("https://wagba-22208-default-rtdb.europe-west1.firebasedatabase.app");
 
         restaurantBanner = (ImageView) findViewById(R.id.restaurant_banner);
         restaurantName = (TextView) findViewById(R.id.restaurant_name);
@@ -50,8 +48,7 @@ public class MenuActivity extends AppCompatActivity {
         totalPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, PaymentActivity.class);
-                startActivity(intent);
+                switchPage(PaymentActivity.class);
             }
         });
 

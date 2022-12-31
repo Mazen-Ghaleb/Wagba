@@ -11,18 +11,14 @@ import com.example.wagba.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
 //    TextView logo;
-    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-
 
 //        logo = (TextView) findViewById(R.id.Logo);
 //        Typeface typeface = getResources().getFont(R.font.paisley_icg_02);
@@ -46,11 +42,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, 1000);
-    }
-
-    public void switchPage(Class activityClass, boolean finish){
-        Intent intent = new Intent(MainActivity.this, activityClass);
-        startActivity(intent);
-        if (finish) {finish();}
     }
 }

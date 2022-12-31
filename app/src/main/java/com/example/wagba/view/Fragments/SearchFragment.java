@@ -21,9 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends BaseFragment {
 
-    FirebaseDatabase firebaseDatabase;
 
     @Nullable
     @Override
@@ -33,8 +32,6 @@ public class SearchFragment extends Fragment {
         RecyclerView searchRecyclerView = (RecyclerView) rootView.findViewById(R.id.searchRecyclerView);
         searchRecyclerView.setHasFixedSize(true);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        firebaseDatabase = FirebaseDatabase.getInstance("https://wagba-22208-default-rtdb.europe-west1.firebasedatabase.app");
-
         getAllRestaurants(new OnGetDataListener() {
             @Override
             public void onSuccess(ArrayList<Restaurant> restaurants) {

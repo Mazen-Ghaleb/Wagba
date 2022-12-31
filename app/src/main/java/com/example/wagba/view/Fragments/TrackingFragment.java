@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wagba.R;
 
 
-public class TrackingFragment extends Fragment {
+public class TrackingFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

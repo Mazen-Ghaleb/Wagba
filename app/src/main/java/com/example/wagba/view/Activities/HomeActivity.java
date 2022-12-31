@@ -28,11 +28,10 @@ import org.w3c.dom.Text;
 
 import java.util.Objects;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     BottomNavigationView bottomNav;
     GoogleSignInClient googleSignInClient;
-    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +50,6 @@ public class HomeActivity extends AppCompatActivity {
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
-        firebaseAuth = FirebaseAuth.getInstance();
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -88,8 +85,7 @@ public class HomeActivity extends AppCompatActivity {
         googleSignInClient.signOut();
         firebaseAuth.signOut();
 
-        startActivity(new Intent(HomeActivity.this,SignupActivity.class));
-        finish();
+        switchPage(SignupActivity.class, true);
     }
 
     public String getUserName(){

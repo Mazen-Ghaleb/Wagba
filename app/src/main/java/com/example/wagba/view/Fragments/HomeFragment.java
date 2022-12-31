@@ -28,10 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     TextView helloUser;
-    FirebaseDatabase firebaseDatabase;
 
     @Nullable
     @Override
@@ -40,7 +39,6 @@ public class HomeFragment extends Fragment {
 
         helloUser = (TextView) rootView.findViewById(R.id.hello_user);
         ((HomeActivity)getActivity()).setProfileData(helloUser);
-        firebaseDatabase = FirebaseDatabase.getInstance("https://wagba-22208-default-rtdb.europe-west1.firebasedatabase.app");
 
         View currentOrder = (View) rootView.findViewById(R.id.current_order_card);
         currentOrder.setOnClickListener(new View.OnClickListener() {

@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.wagba.R;
 import com.example.wagba.view.Activities.HomeActivity;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends BaseFragment {
 
     TextView userName;
     TextView signOut;

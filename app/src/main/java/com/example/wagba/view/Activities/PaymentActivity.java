@@ -13,7 +13,7 @@ import com.example.wagba.view.Adapters.PaymentAdapter;
 import com.example.wagba.view.AdapterData.PaymentData;
 import com.example.wagba.R;
 
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentActivity extends BaseActivity {
 
     RecyclerView paymentRecyclerView;
     Spinner gate;
