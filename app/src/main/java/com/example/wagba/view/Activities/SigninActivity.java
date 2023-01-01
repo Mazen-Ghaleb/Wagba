@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wagba.Constants;
 import com.example.wagba.R;
 import com.example.wagba.view.AdapterData.UserData;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -39,7 +40,7 @@ public class SigninActivity extends BaseActivity {
     SignInButton googleSignInButton;
 
     GoogleSignInClient googleSignInClient;
-    static int RC_SIGN_IN = 3331;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class SigninActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN){
+        if (requestCode == Constants.RC_SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
                 GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -127,7 +128,7 @@ public class SigninActivity extends BaseActivity {
 
     private void googleSignIn(){
         Intent signInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent,RC_SIGN_IN);
+        startActivityForResult(signInIntent,Constants.RC_SIGN_IN);
     }
     private void firebaseAuthWithGoogle (GoogleSignInAccount acct){
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(),null);

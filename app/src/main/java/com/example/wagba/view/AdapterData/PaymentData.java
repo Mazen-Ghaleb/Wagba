@@ -4,9 +4,9 @@ public class PaymentData {
     private String itemName;
     private String itemPrice;
     private String quantity;
-    private Integer itemImage;
+    private String itemImage;
 
-    public PaymentData(String itemName, String itemPrice, String quantity, Integer itemImage) {
+    public PaymentData(String itemName, String itemPrice, String quantity, String itemImage) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.quantity = quantity;
@@ -29,11 +29,11 @@ public class PaymentData {
         this.itemPrice = itemPrice;
     }
 
-    public Integer getItemImage() {
+    public String getItemImage() {
         return itemImage;
     }
 
-    public void setItemImage(Integer itemImage) {
+    public void setItemImage(String itemImage) {
         this.itemImage = itemImage;
     }
 

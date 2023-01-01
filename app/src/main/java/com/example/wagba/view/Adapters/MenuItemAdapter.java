@@ -1,6 +1,7 @@
 package com.example.wagba.view.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.wagba.Constants;
+import com.example.wagba.view.Activities.MenuActivity;
 import com.example.wagba.view.AdapterData.MenuItemData;
 import com.example.wagba.R;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -45,9 +50,11 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull MenuItemAdapter.ViewHolder holder, int position) {
         final MenuItemData menuItemDataList = menuItemData.get(position);
+
         holder.itemName.setText(menuItemDataList.getItemName());
         holder.itemPrice.setText(menuItemDataList.getItemPrice());
-        Glide.with(context).load(menuItemDataList.getItemImage()).into(holder.itemImage);
+        holder.itemImageSource = menuItemDataList.getItemImage();
+        Glide.with(context).load(holder.itemImageSource).into(holder.itemImage);
 //        holder.itemImage.setImageResource(menuItemDataList.());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +71,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+        String itemImageSource;
         ImageView itemImage;
         TextView itemName;
         TextView itemPrice;
@@ -84,9 +92,14 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
                 @Override
                 public void onClick(View view) {
                     Integer quantity = Integer.parseInt(itemQuantity.getText().toString());
+
                     if (quantity < 99) {
                         itemQuantity.setText(Integer.toString(quantity+1));
-                        quantityChangeListener.onQuantityChange(1, Double.parseDouble(itemPrice.getText().toString().split("\\s+")[0]));
+                        String orderItem =  getOrderItem();
+
+                        quantityChangeListener.onQuantityChange(1,
+                                Double.parseDouble(itemPrice.getText().toString().split("\\s+")[0]),
+                                orderItem);
                     }
                 }
             });
@@ -95,16 +108,39 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
                 @Override
                 public void onClick(View view) {
                     Integer quantity = Integer.parseInt(itemQuantity.getText().toString());
+
                     if (quantity != 0) {
                         itemQuantity.setText(Integer.toString(quantity-1));
-                        quantityChangeListener.onQuantityChange(-1,Double.parseDouble(itemPrice.getText().toString().split("\\s+")[0]));
+                        String orderItem =  getOrderItem();
+
+                        quantityChangeListener.onQuantityChange(-1,
+                                Double.parseDouble(itemPrice.getText().toString().split("\\s+")[0]),
+                                orderItem);
                     }
                 }
             });
         }
+
+        String  getOrderItem(){
+            String orderItemString = "";
+            try {
+                JSONObject orderItem = new JSONObject();
+                orderItem.put("name", itemName.getText().toString());
+                orderItem.put("image", itemImageSource);
+                orderItem.put("price", itemPrice.getText().toString());
+                orderItem.put("quantity", Integer.parseInt(itemQuantity.getText().toString()));
+
+                orderItemString = orderItem.toString();
+            }
+            catch (Exception e){
+                Constants.logExceptionError(e);
+            }
+            return orderItemString;
+        }
     }
+
     public interface QuantityChangeListener {
-        void onQuantityChange(Integer quantityDifference, Double itemPrice);
+        void onQuantityChange(Integer quantityDifference, Double itemPrice, String OrderItem);
     }
 }
 

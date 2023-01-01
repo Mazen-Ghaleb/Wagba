@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.wagba.Constants;
 import com.example.wagba.view.AdapterData.MenuItemData;
 import com.example.wagba.R;
 import com.example.wagba.view.AdapterData.Restaurant;
@@ -23,6 +25,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -34,12 +39,18 @@ public class MenuActivity extends BaseActivity {
 
     Double totalPriceValue;
 
+    JSONObject order;
+    JSONObject orderItems;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_menu);
 
         totalPriceValue = 0.0;
+        order= new JSONObject();
+        orderItems = new JSONObject();
 
         restaurantBanner = (ImageView) findViewById(R.id.restaurant_banner);
         restaurantName = (TextView) findViewById(R.id.restaurant_name);
@@ -48,14 +59,23 @@ public class MenuActivity extends BaseActivity {
         totalPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchPage(PaymentActivity.class);
+
+                if (totalPriceValue != 0.0) {
+                    try {
+                        order.put("restaurant", restaurantName.getText().toString());
+                        order.put("orderItems", orderItems);
+
+                        switchPage(PaymentActivity.class, order.toString());
+                    } catch (Exception e) {
+                        Constants.logExceptionError(e);
+                    }
+                }
             }
         });
 
         RecyclerView menuRecyclerView = (RecyclerView) findViewById(R.id.menuRecyclerView);
         menuRecyclerView.setHasFixedSize(true);
         menuRecyclerView.setLayoutManager((new LinearLayoutManager(this)));
-        Restaurant restaurant = null;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -63,13 +83,35 @@ public class MenuActivity extends BaseActivity {
                 @Override
                 public void onSuccess(Restaurant restaurant) {
                     restaurantName.setText(restaurant.getName());
+                    try {
+                        order.put("restaurantBanner", restaurant.getBanner());
+                    }
+                    catch (Exception e){
+                        Constants.logExceptionError(e);
+                    }
                     Glide.with(MenuActivity.this).load(restaurant.getBanner()).into(restaurantBanner);
                     MenuItemAdapter menuAdapter = new MenuItemAdapter(restaurant.getMenuItems(), MenuActivity.this, new MenuItemAdapter.QuantityChangeListener() {
                         @Override
-                        public void onQuantityChange(Integer quantityDifference,  Double itemPrice) {
+                        public void onQuantityChange(Integer quantityDifference,  Double itemPrice, String OrderItem) {
 //                            totalPriceValue = totalPriceValue + (newQuantity-oldQuantity)*itemPrice;
                             totalPriceValue = totalPriceValue + (quantityDifference)*itemPrice;
-                            totalPrice.setText("Total price is "+String.format("%.2f", totalPriceValue)+" EGP");
+                            totalPrice.setText("Total price is "+ Constants.DoublePrecision_toString(totalPriceValue)+" EGP");
+                            try {
+                                JSONObject jsonObject = new JSONObject(OrderItem);
+                                if (totalPriceValue == 0.0){
+                                    order.remove("totalPrice");
+
+                                    orderItems.remove(jsonObject.getString("name"));
+                                }
+                                else {
+                                    order.put("totalPrice", totalPriceValue);
+
+                                    orderItems.put(jsonObject.getString("name"),jsonObject);
+                                }
+                            }
+                            catch (Exception e){
+                                Constants.logExceptionError(e);
+                            }
                         }
                     });
                     menuRecyclerView.setAdapter(menuAdapter);

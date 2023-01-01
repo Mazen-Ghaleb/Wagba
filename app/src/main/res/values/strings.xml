@@ -49,13 +49,13 @@
     <string name="initial_item_price">39 EGP</string>
     <string name="price">Price</string>
     <string name="total_price">Total Price</string>
-    <string name="initial_total_price">156 EGP</string>
+    <string name="initial_total_price"></string>
     <string name="taxes">x1.14 (Taxes)</string>
-    <string name="initial_taxes_val">178 EGP</string>
+    <string name="initial_taxes_val"></string>
     <string name="delivery_fee">+10 EGP (Delivery Fee)</string>
-    <string name="initial_final_cost">188 EGP</string>
+    <string name="initial_final_cost"></string>
     <string name="initial_quantity">Quantity: 2</string>
-    <string name="initial_total_item_price">78 EGP</string>
+    <string name="initial_total_item_price"></string>
     <string name="initial_final_price">Total price is 0.00 EGP</string>
     <string name="gate_txt">Choose a gate</string>
     <string name="confirm_order">Confirm Order</string>
@@ -67,4 +67,5 @@
     <string name="minus">-</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delivery_txt">Choose delivery time</string>
 </resources>
