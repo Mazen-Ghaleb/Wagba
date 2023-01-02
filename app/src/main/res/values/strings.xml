@@ -37,7 +37,7 @@
     <string name="change_email">Change email</string>
     <string name="saved_addresses">Saved Addresses</string>
     <string name="initial_eta">ETA: 20 mins</string>
-    <string name="initial_phase">Cooking Phase</string>
+    <string name="initial_phase">Verifying</string>
     <string name="current_order">Current Order</string>
     <string name="recommended_restaurants">Recommended Restaurants</string>
     <string name="frequently_ordered">Frequently Ordered</string>

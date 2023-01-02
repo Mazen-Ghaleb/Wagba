@@ -21,6 +21,10 @@ import com.example.wagba.view.AdapterData.OrderData;
 import com.example.wagba.view.Adapters.PaymentAdapter;
 import com.example.wagba.view.AdapterData.PaymentData;
 import com.example.wagba.R;
+import com.example.wagba.view.Fragments.CustomMapFragment;
+import com.example.wagba.view.Fragments.GateMapFragment;
+import com.example.wagba.view.Fragments.HomeFragment;
+import com.google.android.gms.maps.MapFragment;
 
 import org.json.JSONObject;
 
@@ -39,6 +43,7 @@ public class PaymentActivity extends BaseActivity {
     Spinner gate;
     Spinner deliveries_times;
     Button confirmOrder;
+    CustomMapFragment mapFragment;
 
     JSONObject orderJSON;
     Calendar calendar;
@@ -61,7 +66,7 @@ public class PaymentActivity extends BaseActivity {
         deliveries_times = (Spinner) findViewById(R.id.time_list);
         paymentRecyclerView = (RecyclerView) findViewById(R.id.paymentRecyclerView);
         confirmOrder = (Button) findViewById(R.id.order_btn);
-
+        switchFragment(R.id.gateMap_container, new GateMapFragment());
 
         ArrayAdapter<String> gateAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gates);
         gate.setAdapter(gateAdapter);
@@ -223,5 +228,8 @@ public class PaymentActivity extends BaseActivity {
         catch (Exception e){
             Constants.logExceptionError(e);
         }
+    }
+    public String getSelectedGate(){
+        return gate.getSelectedItem().toString();
     }
 }

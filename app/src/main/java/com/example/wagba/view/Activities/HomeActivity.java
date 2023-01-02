@@ -41,8 +41,7 @@ public class HomeActivity extends BaseActivity {
         bottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
+        switchFragment(R.id.fragment_container, new HomeFragment());
 
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -74,8 +73,7 @@ public class HomeActivity extends BaseActivity {
                     case R.id.order_history:
                         selectedFragment = new OrderHistoryFragment();
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        selectedFragment).commit();
+                switchFragment(R.id.fragment_container, selectedFragment);
 
                 return true;
             }

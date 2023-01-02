@@ -64,7 +64,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/ordered_restaurant_img"
+                        android:id="@+id/current_restaurant_img"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -78,7 +78,7 @@
                         >
 
                         <TextView
-                            android:id="@+id/ordered_restaurant"
+                            android:id="@+id/current_restaurant"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
@@ -89,7 +89,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/ordered_phase"
+                            android:id="@+id/current_status"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
@@ -100,7 +100,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/ordered_eta"
+                            android:id="@+id/current_eta"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"

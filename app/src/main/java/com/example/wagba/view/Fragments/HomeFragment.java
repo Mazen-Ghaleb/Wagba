@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,17 @@ import java.util.ArrayList;
 public class HomeFragment extends BaseFragment {
 
     TextView helloUser;
+    LinearLayout currentOrderContainer;
+    View currentOrder;
+    TextView currentOrderRestaurant;
+    TextView currentOrderStatus;
+    TextView currentOrderETA;
+    ImageView currentOrderImage;
+
+    LinearLayout frequentOrderContainer;
+    RecyclerView frequentRecyclerView;
+    RecyclerView recommendedRecyclerView;
+
 
     @Nullable
     @Override
@@ -38,22 +51,69 @@ public class HomeFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.home_fragment,container,false);
 
         helloUser = (TextView) rootView.findViewById(R.id.hello_user);
+        currentOrderRestaurant = (TextView) rootView.findViewById(R.id.current_restaurant);
+        currentOrderStatus = (TextView) rootView.findViewById(R.id.current_status);
+        currentOrderETA = (TextView) rootView.findViewById(R.id.current_eta);
+        currentOrderImage = (ImageView) rootView.findViewById(R.id.current_restaurant_img);
+        currentOrderContainer = (LinearLayout) rootView.findViewById(R.id.current_order_layout);
+        frequentOrderContainer = (LinearLayout) rootView.findViewById(R.id.frequently_ordered_layout);
+        currentOrder = (View) rootView.findViewById(R.id.current_order_card);
+        frequentRecyclerView = (RecyclerView) rootView.findViewById(R.id.frequentRecyclerView);
+        recommendedRecyclerView = (RecyclerView) rootView.findViewById(R.id.recommendedRecyclerView);
+
+        currentOrderContainer.setVisibility(View.GONE);
+        frequentOrderContainer.setVisibility(View.GONE);
+
         ((HomeActivity)getActivity()).setProfileData(helloUser);
 
-        View currentOrder = (View) rootView.findViewById(R.id.current_order_card);
-        currentOrder.setOnClickListener(new View.OnClickListener() {
+        firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new TrackingFragment()).commit();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.hasChild("Orders")) {
+                    for (DataSnapshot order : dataSnapshot.child("Orders").getChildren()){
+                        if (order.child("orderStatus").getValue() != "Delivered"){
+                            currentOrderRestaurant.setText(order.child("restaurant").getValue().toString());
+                            currentOrderStatus.setText(order.child("orderStatus").getValue().toString());
+                            currentOrderETA.setText("60 mins");
+
+                            firebaseDatabase.getReference("Restaurants").child(order.child("restaurant").getValue().toString()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot restaurant) {
+                                    Glide.with(getContext()).load(restaurant.child("logo").getValue().toString()).into(currentOrderImage);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+                            currentOrderContainer.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } else {
+                    currentOrderContainer.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        RecyclerView frequentRecyclerView = (RecyclerView) rootView.findViewById(R.id.frequentRecyclerView);
+
+        currentOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchFragment(R.id.fragment_container, new TrackingFragment(),currentOrderStatus.getText().toString());
+            }
+        });
+
         frequentRecyclerView.setHasFixedSize(true);
         frequentRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
 
-        getfrequentRestaurants(new OnGetDataListener() {
+        getFrequentRestaurants(new OnGetDataListener() {
             @Override
             public void onSuccess(ArrayList<Restaurant> restaurants) {
                 RestaurantAdapter frequentAdapter = new RestaurantAdapter(restaurants,getActivity());
@@ -71,7 +131,6 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        RecyclerView recommendedRecyclerView = (RecyclerView) rootView.findViewById(R.id.recommendedRecyclerView);
         recommendedRecyclerView.setHasFixedSize(true);
         recommendedRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
 
@@ -117,7 +176,7 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
-    void getfrequentRestaurants(final OnGetDataListener listener){
+    void getFrequentRestaurants(final OnGetDataListener listener){
         firebaseDatabase.getReference("Restaurants").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
