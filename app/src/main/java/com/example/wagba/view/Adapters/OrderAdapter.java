@@ -38,15 +38,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
         final OrderData orderDataList = orderData[position];
-        holder.orderNumber.setText(orderDataList.getOrderNumber());
-        holder.orderDate.setText(orderDataList.getOrderDate());
+        holder.orderNumber.setText(orderDataList.getOrderId());
+        holder.orderDate.setText(orderDataList.getOrderedDate());
         holder.orderRestaurant.setText(orderDataList.getRestaurant());
         holder.restaurantImage.setImageResource(orderDataList.getRestaurantImage());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, orderDataList.getOrderNumber(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, orderDataList.getOrderId(), Toast.LENGTH_SHORT).show();
             }
         });
     }
