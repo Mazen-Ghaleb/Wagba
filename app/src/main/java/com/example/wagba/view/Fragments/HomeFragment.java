@@ -39,6 +39,7 @@ public class HomeFragment extends BaseFragment {
     TextView currentOrderStatus;
     TextView currentOrderETA;
     ImageView currentOrderImage;
+    String currentOrderGate;
 
     LinearLayout frequentOrderContainer;
     RecyclerView frequentRecyclerView;
@@ -76,10 +77,14 @@ public class HomeFragment extends BaseFragment {
                             currentOrderRestaurant.setText(order.child("restaurant").getValue().toString());
                             currentOrderStatus.setText(order.child("orderStatus").getValue().toString());
                             currentOrderETA.setText("60 mins");
+                            currentOrderGate = order.child("orderGate").getValue().toString();
 
                             firebaseDatabase.getReference("Restaurants").child(order.child("restaurant").getValue().toString()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot restaurant) {
+                                    if (getActivity() == null) {
+                                        return;
+                                    }
                                     Glide.with(getContext()).load(restaurant.child("logo").getValue().toString()).into(currentOrderImage);
                                 }
 
@@ -106,7 +111,9 @@ public class HomeFragment extends BaseFragment {
         currentOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchFragment(R.id.fragment_container, new TrackingFragment(),currentOrderStatus.getText().toString());
+                switchFragment(R.id.fragment_container, new TrackingFragment(),
+                        currentOrderStatus.getText().toString() +
+                                "+"+ currentOrderGate);
             }
         });
 

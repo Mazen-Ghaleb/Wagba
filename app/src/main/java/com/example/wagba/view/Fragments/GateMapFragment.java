@@ -82,21 +82,4 @@ public class GateMapFragment extends CustomMapFragment {
             }
         });
     }
-
-    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
-        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
-        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
-        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        vectorDrawable.draw(canvas);
-        return BitmapDescriptorFactory.fromBitmap(bitmap);
-    }
-    private MarkerOptions getMarkerOptions(String title, LatLng position){
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.icon(bitmapDescriptorFromVector(getContext(),R.drawable.ic_gate));
-        markerOptions.position(position);
-        markerOptions.title(title);
-        return  markerOptions;
-    }
-
 }
