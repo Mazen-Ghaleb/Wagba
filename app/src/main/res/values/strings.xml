@@ -72,4 +72,6 @@
     <string name="change_last_name">Change last name</string>
     <string name="change_gender">Change gender</string>
     <string name="language">Language</string>
+    <string name="Prefilled_Email">test@test.com</string>
+    <string name="Prefilled_Password">Mazen12</string>
 </resources>

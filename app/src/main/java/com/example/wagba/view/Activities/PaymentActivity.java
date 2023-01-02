@@ -48,6 +48,7 @@ public class PaymentActivity extends BaseActivity {
     JSONObject orderJSON;
     Calendar calendar;
     Integer currentHour;
+    Integer currentMin;
     String[] gates = new String[]{"Gate 3", "Gate 4"};
     String[] delivery_time = new String[]{"12:00 pm", "3:00 pm"};
 
@@ -93,20 +94,30 @@ public class PaymentActivity extends BaseActivity {
         }
 
         currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        currentMin = calendar.get(Calendar.MINUTE);
 
         if (currentHour >= 13){
-            calendar.add(Calendar.DATE,1);
-            delivery_time[0] = getDateString(calendar) + " "+ delivery_time[0];
-            delivery_time[1] = getDateString(calendar) + " "+ delivery_time[1];
+            if(currentHour == 13 && currentMin <30) {
+                delivery_time[0] = getDateString(calendar) + " "+ delivery_time[0];
+                delivery_time[1] = getDateString(calendar) + " "+ delivery_time[1];
+            } else {
+                calendar.add(Calendar.DATE, 1);
+                delivery_time[0] = getDateString(calendar) + " " + delivery_time[0];
+                delivery_time[1] = getDateString(calendar) + " " + delivery_time[1];
+            }
 
         } else if (currentHour >= 10){
+            if(currentHour == 10 && currentMin <30) {
+                delivery_time[0] = getDateString(calendar) + " "+ delivery_time[0];
+                delivery_time[1] = getDateString(calendar) + " "+ delivery_time[1];
+            } else {
+                String temp = delivery_time[0];
 
-            String temp = delivery_time[0];
+                delivery_time[0] = getDateString(calendar) + " "+ delivery_time[1];
 
-            delivery_time[0] = getDateString(calendar) + " "+ delivery_time[1];
-
-            calendar.add(Calendar.DATE,1);
-            delivery_time[1] = getDateString(calendar) + " "+ temp;
+                calendar.add(Calendar.DATE,1);
+                delivery_time[1] = getDateString(calendar) + " "+ temp;
+            }
 
         } else {
             delivery_time[0] = getDateString(calendar) + " "+ delivery_time[0];
