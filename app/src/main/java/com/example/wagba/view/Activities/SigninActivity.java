@@ -3,6 +3,7 @@ package com.example.wagba.view.Activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +15,9 @@ import android.widget.Toast;
 
 import com.example.wagba.Constants;
 import com.example.wagba.R;
+import com.example.wagba.data.Profile;
 import com.example.wagba.view.AdapterData.UserData;
+import com.example.wagba.viewModel.ProfileViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,7 +31,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SigninActivity extends BaseActivity {
 
@@ -117,6 +123,26 @@ public class SigninActivity extends BaseActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         Toast.makeText(SigninActivity.this, "Signed In successfully", Toast.LENGTH_SHORT).show();
+                        firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot user) {
+                                ProfileViewModel mProfileViewModel = new ViewModelProvider(SigninActivity.this).get(ProfileViewModel.class);
+                                Profile profile = new Profile(
+                                        user.child("id").getValue().toString(),
+                                        user.child("firstName").getValue().toString(),
+                                        user.child("lastName").getValue().toString(),
+                                        user.child("email").getValue().toString(),
+                                        user.child("birthdate").getValue().toString(),
+                                        user.child("gender").getValue().toString()
+                                );
+                                mProfileViewModel.insert(profile);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                         switchPage(HomeActivity.class,true);
                     } else{
                         Toast.makeText(SigninActivity.this, "Sign In Error: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -145,6 +171,27 @@ public class SigninActivity extends BaseActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Toast.makeText(SigninActivity.this, "Sign In Success", Toast.LENGTH_SHORT).show();
+
+                                    firebaseDatabase.getReference("Users").child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot user) {
+                                            ProfileViewModel mProfileViewModel = new ViewModelProvider(SigninActivity.this).get(ProfileViewModel.class);
+                                            Profile profile = new Profile(
+                                                    user.child("id").getValue().toString(),
+                                                    user.child("firstName").getValue().toString(),
+                                                    user.child("lastName").getValue().toString(),
+                                                    user.child("email").getValue().toString(),
+                                                    user.child("birthdate").getValue().toString(),
+                                                    user.child("gender").getValue().toString()
+                                            );
+                                            mProfileViewModel.insert(profile);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
                                     switchPage(HomeActivity.class,true);
                                 }
                             });
