@@ -73,7 +73,7 @@ public class HomeFragment extends BaseFragment {
 
                 if (dataSnapshot.hasChild("Orders")) {
                     for (DataSnapshot order : dataSnapshot.child("Orders").getChildren()){
-                        if (order.child("orderStatus").getValue().equals("Verifying")){
+                        if (!order.child("orderStatus").getValue().equals("Delivered") || !order.child("orderStatus").getValue().equals("Denied")){
                             currentOrderRestaurant.setText(order.child("restaurant").getValue().toString());
                             currentOrderStatus.setText(order.child("orderStatus").getValue().toString());
                             currentOrderETA.setText("60 mins");
