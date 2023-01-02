@@ -12,15 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.wagba.view.AdapterData.OrderData;
 import com.example.wagba.R;
 
+import java.util.ArrayList;
+
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
-    OrderData[] orderData;
+    ArrayList<OrderData> orderData;
     Context context;
 
-    public OrderAdapter (OrderData[] orderData, FragmentActivity activity) {
+    public OrderAdapter (ArrayList<OrderData> orderData, FragmentActivity activity) {
         this.orderData = orderData;
         this.context = activity;
     }
@@ -37,11 +40,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
-        final OrderData orderDataList = orderData[position];
-        holder.orderNumber.setText(orderDataList.getOrderId());
-        holder.orderDate.setText(orderDataList.getOrderedDate());
+        final OrderData orderDataList = orderData.get(position);
+        holder.orderStatus.setText(orderDataList.getOrderStatus());
+        holder.orderId.setText(orderDataList.getOrderId());
+        holder.orderedDate.setText(orderDataList.getOrderedDate());
         holder.orderRestaurant.setText(orderDataList.getRestaurant());
-        holder.restaurantImage.setImageResource(orderDataList.getRestaurantImage());
+        holder.orderPrice.setText(orderDataList.getTotalPrice());
+        Glide.with(context).load(orderDataList.getRestaurantImage()).into(holder.restaurantImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,22 +58,26 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return orderData.length;
+        return orderData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView restaurantImage;
-        TextView orderNumber;
-        TextView orderDate;
+        TextView orderStatus;
+        TextView orderId;
+        TextView orderedDate;
         TextView orderRestaurant;
+        TextView orderPrice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             restaurantImage = (ImageView) itemView.findViewById(R.id.order_image);
-            orderNumber = (TextView) itemView.findViewById(R.id.order_number);
-            orderDate = (TextView) itemView.findViewById(R.id.order_date);
+            orderStatus = (TextView) itemView.findViewById(R.id.order_status);
+            orderId = (TextView) itemView.findViewById(R.id.order_id);
+            orderedDate = (TextView) itemView.findViewById(R.id.ordered_date);
             orderRestaurant = (TextView) itemView.findViewById(R.id.order_restaurant);
+            orderPrice = (TextView) itemView.findViewById(R.id.order_total_price);
         }
     }
 }

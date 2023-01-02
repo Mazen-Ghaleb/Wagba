@@ -42,9 +42,9 @@
     <string name="recommended_restaurants">Recommended Restaurants</string>
     <string name="frequently_ordered">Frequently Ordered</string>
     <string name="order_history">Order History</string>
-    <string name="initial_order_number">Order #210</string>
-    <string name="initial_order_date">Delivered 10 Oct 2022, 7:51 PM</string>
-    <string name="view_order_details">View Order Details</string>
+    <string name="initial_order_number">Order Id: 210</string>
+    <string name="initial_order_date">Ordered at 10 Oct 2022, 7:51 PM</string>
+    <string name="total_price_details">300 EGP</string>
     <string name="initial_item_name">BBQ Rizo</string>
     <string name="initial_item_price">39 EGP</string>
     <string name="price">Price</string>
@@ -68,4 +68,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delivery_txt">Choose delivery time</string>
+    <string name="initial_history_phase">Delivered</string>
 </resources>

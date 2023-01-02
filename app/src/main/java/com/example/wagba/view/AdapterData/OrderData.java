@@ -18,15 +18,8 @@ public class OrderData {
     private String orderGate;
     private String totalPrice;
     private String restaurant;
+    private String restaurantImage;
     private Map<String, OrderItem> orderItems;
-    private Integer restaurantImage;
-
-    public OrderData(String orderId, String orderedDate, String restaurant, Integer restaurantImage) {
-        this.orderId = orderId;
-        this.orderedDate = orderedDate;
-        this.restaurant = restaurant;
-        this.restaurantImage = restaurantImage;
-    }
 
     public OrderData(JSONObject order) {
         try {
@@ -60,7 +53,9 @@ public class OrderData {
         }
     }
 
-    public OrderData(String userId, String orderId, String orderStatus, String orderTime, String orderedDate, String orderGate, String totalPrice, String restaurant, Map<String, OrderItem> orderItems, Integer restaurantImage) {
+    public OrderData(String userId, String orderId, String orderStatus, String orderTime,
+                     String orderedDate, String orderGate, String totalPrice,
+                     String restaurant, Map<String, OrderItem> orderItems, String restaurantImage) {
         this.userId = userId;
         this.orderId = orderId;
         this.orderStatus = orderStatus;
@@ -70,6 +65,20 @@ public class OrderData {
         this.totalPrice = totalPrice;
         this.restaurant = restaurant;
         this.orderItems = orderItems;
+        this.restaurantImage = restaurantImage;
+    }
+
+    public OrderData(String userId, String orderId, String orderStatus, String orderTime,
+                     String orderedDate, String orderGate, String totalPrice,
+                     String restaurant, String restaurantImage) {
+        this.userId = userId;
+        this.orderId = orderId;
+        this.orderStatus = orderStatus;
+        this.orderTime = orderTime;
+        this.orderedDate = orderedDate;
+        this.orderGate = orderGate;
+        this.totalPrice = totalPrice;
+        this.restaurant = restaurant;
         this.restaurantImage = restaurantImage;
     }
 
@@ -105,7 +114,7 @@ public class OrderData {
         return orderItems;
     }
 
-    public Integer getRestaurantImage() {
+    public String getRestaurantImage() {
         return restaurantImage;
     }
 
